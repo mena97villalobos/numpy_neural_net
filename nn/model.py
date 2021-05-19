@@ -3,9 +3,11 @@ from nn.loss_layer import loss_layer
 from nn.dense import dense
 import numpy as np
 
+
 class model():
-    def __init__(self, input_size, output_size, hidden_shapes, func_acti, func_acti_grad, has_dropout=True, dropout_perc=0.5):
-        assert(len(hidden_shapes) > 0), "NN must have at least 1 hidden layer!"
+    def __init__(self, input_size, output_size, hidden_shapes, func_acti, func_acti_grad, has_dropout=True,
+                 dropout_perc=0.5):
+        assert (len(hidden_shapes) > 0), "NN must have at least 1 hidden layer!"
         self.input_size = input_size
         self.output_size = output_size
         self.hidden_shapes = hidden_shapes
@@ -14,7 +16,6 @@ class model():
         self.has_dropout = has_dropout
         self.dropout_perc = dropout_perc
         self.populate_layers(func_acti, func_acti_grad)
-
 
     def populate_layers(self, func_acti, func_acti_grad):
         i_size = self.input_size
@@ -28,14 +29,14 @@ class model():
         data = x
         for i in range(0, self.hidden_amount):
             data = self.hidden_layers[i].forward(data)
-            if train and self.has_dropout: #do dropout only during training
+            if train and self.has_dropout:  # do dropout only during training
                 mask = self.hidden_layers[i].dropout(self.dropout_perc)
                 data *= mask
                 self.dropout_masks.append(mask)
 
         o = self.loss_layer.forward(data)
         loss = self.loss_layer.loss(y)
-        #print(loss, o)
+        # print(loss, o)
         return o, loss
 
     def predict(self, x):
@@ -45,7 +46,7 @@ class model():
         o = self.loss_layer.forward(data)
         return o
 
-    #alpha is used for reinforcement learning fir reward
+    # alpha is used for reinforcement learning fir reward
     def backward(self, y, o, rewards=None):
         self.loss_layer.backward(y, rewards)
         prev = self.loss_layer
