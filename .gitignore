@@ -6,3 +6,4 @@ runs/xor_log.txt
 
 .vscode
 *.pyc
+*/__pycache__
