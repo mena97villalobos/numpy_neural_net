@@ -5,3 +5,4 @@ runs/nmist_log.txt
 runs/xor_log.txt
 
 .vscode
+*.pyc
