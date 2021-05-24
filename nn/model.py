@@ -8,7 +8,6 @@ import numpy as np
 class model():
     def __init__(self, input_size, output_size, hidden_shapes, func_acti, func_acti_grad, loss_func, has_dropout=True,
                  dropout_perc=0.5):
-        assert (len(hidden_shapes) > 0), "NN must have at least 1 hidden layer!"
         self.input_size = input_size
         self.output_size = output_size
         self.hidden_shapes = hidden_shapes

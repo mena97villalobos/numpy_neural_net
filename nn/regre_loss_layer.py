@@ -21,4 +21,4 @@ class regre_loss_layer(loss_layer):
             self.grads = y.reshape(-1,1) - self.o
 
     def loss(self, y):
-        return np.sum((self.o - y) ** 2) / y.size
+        return np.sum((self.o - y) * self.x) * 2 / y.size
