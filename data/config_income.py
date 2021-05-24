@@ -7,7 +7,7 @@ import numpy as np
 dataset_path = r"sets/income.csv"
 batch_size = 498
 validate_every_no_of_batches = 498
-epochs = 1
+epochs = 10
 input_size = 1
 output_size = 1
 hidden_shapes = [1]
@@ -16,11 +16,10 @@ lr = 0.0085
 has_dropout=True
 dropout_perc=0.5
 output_log = r"runs/income.txt"
-#iris dataset
+
 with open(dataset_path, "rb") as input_file:
     income_dataset = read_csv(input_file)
-    x = np.array(income_dataset['income']).reshape(len(np.array(income_dataset['income'])), 1)
-    # np.array(income_dataset['income'])
+    x = np.array(income_dataset['income']).reshape(-1, 1)
     x = x / np.max(x, axis=0)
     y = np.array(income_dataset['happiness'])
 data = dataset(x, y, batch_size)
