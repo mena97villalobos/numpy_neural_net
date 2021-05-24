@@ -1,5 +1,5 @@
 class ConfigEnum:
-    XOR, IRIS, MNIST = range(3)
+    XOR, IRIS, MNIST, INCOME = range(4)
 
 #factory-like class which produces different configs for each dataset tested
 class hyperparams():
@@ -9,8 +9,10 @@ class hyperparams():
             import data.config_xor as config
         elif config_enum==ConfigEnum.IRIS:
             import data.config_iris as config
-        else:
+        elif config_enum==ConfigEnum.MNIST:
             import data.config_mnist as config
+        else:
+            import data.config_income as config
         self.config = config
         self.batch_size = config.batch_size
         self.validate_every_no_of_batches = config.validate_every_no_of_batches
@@ -18,6 +20,7 @@ class hyperparams():
         self.input_size = config.input_size
         self.output_size = config.output_size
         self.hidden_shapes = config.hidden_shapes
+        self.loss = config.loss
         self.lr = config.lr
         self.has_dropout= config.has_dropout
         self.dropout_perc= config.dropout_perc

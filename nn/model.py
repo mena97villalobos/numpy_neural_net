@@ -1,11 +1,12 @@
 from nn.funcs import *
-from nn.loss_layer import loss_layer
+from nn.regre_loss_layer import regre_loss_layer
+from nn.classy_loss_layer import classy_loss_layer
 from nn.dense import dense
 import numpy as np
 
 
 class model():
-    def __init__(self, input_size, output_size, hidden_shapes, func_acti, func_acti_grad, has_dropout=True,
+    def __init__(self, input_size, output_size, hidden_shapes, func_acti, func_acti_grad, loss_func, has_dropout=True,
                  dropout_perc=0.5):
         assert (len(hidden_shapes) > 0), "NN must have at least 1 hidden layer!"
         self.input_size = input_size
@@ -15,14 +16,21 @@ class model():
         self.hidden_layers = []
         self.has_dropout = has_dropout
         self.dropout_perc = dropout_perc
-        self.populate_layers(func_acti, func_acti_grad)
+        self.populate_layers(func_acti, func_acti_grad, loss_func)
 
-    def populate_layers(self, func_acti, func_acti_grad):
+    def populate_layers(self, func_acti, func_acti_grad, loss_func):
         i_size = self.input_size
         for i in range(0, self.hidden_amount):
             self.hidden_layers.append(dense(i_size, self.hidden_shapes[i], func_acti, func_acti_grad))
-            i_size = self.hidden_shapes[i]
-        self.loss_layer = loss_layer(i_size, self.output_size)
+            i_size = self.hidden_shapes[i] 
+        self.loss_layer = self.get_loss_function(i_size, loss_func)
+
+    def get_loss_function(self, i_size, loss_func):
+        loss_func_switch = {
+            'mse': regre_loss_layer(i_size, self.output_size),
+            'softmax': classy_loss_layer(i_size, self.output_size)
+        }
+        return loss_func_switch[loss_func]
 
     def forward(self, x, y, train=True):
         self.dropout_masks = []

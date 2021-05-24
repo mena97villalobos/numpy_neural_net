@@ -60,17 +60,20 @@ def train(nn, hp, val_hist, train_hist, logger):
 
 
 # load hyperparameters and settings according to dataset enum
-hp = hyperparams(ConfigEnum.XOR)
+# hp = hyperparams(ConfigEnum.XOR)
 # hp = hyperparams(ConfigEnum.IRIS)
 # hp = hyperparams(ConfigEnum.MNIST)
+hp = hyperparams(ConfigEnum.INCOME)
+
 
 # model has number of inputs, number of outputs, and list with sizes of hidden layers
 # requires at least 1 hidden layer, else fails assert
-nn = model(hp.input_size, hp.output_size, hp.hidden_shapes, sigmoid, sigmoid_grad, has_dropout=hp.has_dropout,
+nn = model(hp.input_size, hp.output_size, hp.hidden_shapes, sigmoid, sigmoid_grad, hp.loss, has_dropout=hp.has_dropout,
            dropout_perc=hp.dropout_perc)
 
 val_hist = historian()
 train_hist = historian()
+
 logger = nnlogger(hp.output_log, ("Epoch", "Phase", "Iteration", "Accuracy", "Loss"))
 train(nn, hp, val_hist, train_hist, logger)
 test(hp.ds_test, verbose=True, phase="Test")

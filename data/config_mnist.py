@@ -4,13 +4,14 @@ import pickle
 
 
 #hyperparameters
-dataset_path = r"runs/nmist.ds"
+dataset_path = r"sets/nmist.ds"
 batch_size = 32
 validate_every_no_of_batches = 600
 epochs = 10
 input_size = 784
 output_size = 10
 hidden_shapes = [512, 128]
+loss = 'softmax'
 lr = 0.0085
 has_dropout=True
 dropout_perc=0.5

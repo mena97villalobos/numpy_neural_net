@@ -8,6 +8,7 @@ epochs = 2000
 input_size = 2
 output_size = 2
 hidden_shapes = [2]
+loss = 'softmax'
 lr = 0.085
 has_dropout=False
 dropout_perc=0.5
