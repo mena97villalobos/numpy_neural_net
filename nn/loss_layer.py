@@ -11,12 +11,7 @@ class loss_layer(op):
 
     # alpha is used as reward in some reinforcement learning envs
     def backward(self, y, rewards=None):
-        one_hot = np.zeros(self.o.shape)
-        one_hot[np.arange(self.o.shape[0]), y] = 1
-        if rewards is not None:
-            self.grads = (one_hot - self.o) * rewards
-        else:
-            self.grads = one_hot - self.o
+        pass
 
     def loss(self, y):
         pass

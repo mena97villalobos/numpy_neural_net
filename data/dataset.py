@@ -69,7 +69,6 @@ class dataset_splitter():
         temp = int(train_limit * (1.0 - perc_val))
         val_limit = train_limit - temp
         train_limit = temp
-        #print(n, train_limit, val_limit)
         self._split_by_limits(batch_size, train_limit, train_limit+val_limit)
         print(self.ds_train.shapes(), self.ds_val.shapes(), self.ds_test.shapes())
         return self.ds_train, self.ds_val, self.ds_test

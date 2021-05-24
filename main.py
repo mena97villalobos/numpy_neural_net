@@ -80,6 +80,7 @@ test(hp.ds_test, verbose=True, phase="Test")
 nnplotter.view(val_hist, train_hist)  # see results on plot
 logger.close()
 
+
 '''
 #this stuff just changes percentages of training and validation to check for best accuracies
 logger = nnlogger(hp.output_log, ("Epoch", "Phase", "Iteration", "Accuracy", "Loss") )

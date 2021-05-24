@@ -21,7 +21,6 @@ with open(dataset_path, "rb") as input_file:
     x = np.array(nmist.data)
     x = x / 255.0
     y = np.array(nmist.target).astype(np.int)
-    #print(x)
 data = dataset(x, y, batch_size)
 splitter = dataset_splitter(data.compl_x, data.compl_y, batch_size, 0.8, 0.2)
 ds_train = splitter.ds_train

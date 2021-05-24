@@ -13,6 +13,15 @@ class classy_loss_layer(loss_layer):
         self.o = softmax(np.dot(x, self.W) + self.b)
         return self.o
 
+    # alpha is used as reward in some reinforcement learning envs
+    def backward(self, y, rewards=None):
+        one_hot = np.zeros(self.o.shape)
+        one_hot[np.arange(self.o.shape[0]), y] = 1
+        if rewards is not None:
+            self.grads = (one_hot - self.o) * rewards
+        else:
+            self.grads = one_hot - self.o
+
     def loss(self, y):
         one_hot = np.zeros(self.o.shape, dtype=np.int)
         one_hot[np.arange(self.o.shape[0]), y] = 1

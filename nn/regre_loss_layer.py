@@ -13,5 +13,12 @@ class regre_loss_layer(loss_layer):
         self.o = np.dot(x, self.W) + self.b
         return self.o
 
+    def backward(self, y, rewards=None):
+        print(self.o, y)
+        if rewards is not None:
+            self.grads = self.o * rewards
+        else:
+            self.grads = self.o
+
     def loss(self, y):
         return np.sum((self.o - y) ** 2) / y.size
